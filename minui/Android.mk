@@ -12,10 +12,11 @@ LOCAL_C_INCLUDES +=\
     external/libpng\
     external/zlib
 
-ifeq ($(call is-vendor-board-platform,QCOM),true)
-  LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
-  LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
-endif
+# This causes a prebuilt kernel config to fail
+#ifeq ($(call is-vendor-board-platform,QCOM),true)
+#  LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+#  LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+#endif
 
 ifeq ($(TARGET_USES_QCOM_BSP), true)
     LOCAL_CFLAGS += -DMSM_BSP
@@ -48,10 +49,11 @@ ifneq ($(TARGET_RECOVERY_LCD_BACKLIGHT_PATH),)
   LOCAL_CFLAGS += -DRECOVERY_LCD_BACKLIGHT_PATH=$(TARGET_RECOVERY_LCD_BACKLIGHT_PATH)
 endif
 
+# This causes a prebuilt kernel config to fail
 # Some devices need kernel headers for graphics
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-  LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
-  LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
-endif
+#ifeq ($(TARGET_PREBUILT_KERNEL),)
+#  LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+#  LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+#endif
 
 include $(BUILD_STATIC_LIBRARY)
